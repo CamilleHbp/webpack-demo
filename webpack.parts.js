@@ -1,5 +1,4 @@
-// The webpack-dev-server is a development server running in-memory,
-// watching the files and refreshing content.
+// The webpack-dev-server is a development server running in-memory, watching the files and refreshing content.
 // We also use nodemon to watch the webpack.config.js file
 exports.devServer = ({ host, port } = {}) => ({
   devServer: {
@@ -8,30 +7,45 @@ exports.devServer = ({ host, port } = {}) => ({
     // Parse host and port from env to allow customization.
     host, // Defaults to `localhost`
     port, // Defaults to 8080
-    open: false, // Open the page in browser
+    open: false, // Don't open the page in browser (using the VSCode debugger)
     overlay: true, // Provides an overlay for capturing warnings and errors
-    hotOnly: true // Don't refresh if hot loading fails. Good while implementing the client interface.
+    hotOnly: true // Don't refresh if hot loading fails. Good while implementing the client interface
   }
 });
 
-exports.loadCss = ({ include, exclude } = {}) => ({
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+exports.extractCss = ({ include, exclude, use } = {}) => {
+  // Output extracted CSS to a file
+  const plugin = new MiniCssExtractPlugin({
+    filename: '[name].css'
+  });
+
+  return {
+    module: {
+      rules: [
+        {
+          test: /\.(s?)css$/, // Files that match the regex will be loaded through the loader plugins
+          include,
+          exclude,
+
+          use: [MiniCssExtractPlugin.loader].concat(use)
+        }
+      ]
+    },
+    plugins: [plugin]
+  };
+};
+
+exports.loadCss = ({ include, exclude, use } = {}) => ({
   module: {
     rules: [
       {
-        test: /\.scss$/,
-        test: /\.(s?)css$/,
-        // test: /\.(s*)css$/,
-        // test: /\.s[ac]ss$/i,
-        // include, // list of files to include in the loader
-        // exclude, // list of files to exclude from the loader
+        test: /\.(s?)css$/, // Files that match the regex will be loaded through the loader plugins
+        include, // list of files to include in the loader
+        exclude, // list of files to exclude from the loader
         use: [
-          // Creates `style` nodes from JS strings
-          'style-loader',
-          // Translates CSS into CommonJS
-          'css-loader',
-          // Compiles Sass to CSS
-          'sass-loader'
-        ]
+          'style-loader' // Creates `style` nodes from JS strings
+        ].concat(use)
       }
     ]
   }

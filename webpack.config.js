@@ -3,8 +3,16 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const merge = require('webpack-merge');
 const parts = require('./webpack.parts');
 
+const loadersCss = {
+  use: [
+    // Translates CSS into CommonJS
+    'css-loader',
+    // Compiles Sass to CSS
+    'sass-loader'
+  ]
+};
+
 const commonConfig = merge([
-  parts.loadCss(),
   {
     plugins: [
       // The html-webpack-plugin generates automatically the index.html file
@@ -15,9 +23,10 @@ const commonConfig = merge([
   }
 ]);
 
-const productionConfig = merge([]);
+const productionConfig = merge([parts.extractCss(loadersCss)]);
 
 const developmentConfig = merge([
+  parts.loadCss(loadersCss),
   parts.devServer({
     // Customize if needed
     host: process.env.host,
