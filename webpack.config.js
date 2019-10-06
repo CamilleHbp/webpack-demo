@@ -4,6 +4,7 @@ const merge = require('webpack-merge');
 const parts = require('./webpack.parts');
 
 const commonConfig = merge([
+  parts.loadCss(),
   {
     plugins: [
       // The html-webpack-plugin generates automatically the index.html file

@@ -13,3 +13,26 @@ exports.devServer = ({ host, port } = {}) => ({
     hotOnly: true // Don't refresh if hot loading fails. Good while implementing the client interface.
   }
 });
+
+exports.loadCss = ({ include, exclude } = {}) => ({
+  module: {
+    rules: [
+      {
+        test: /\.scss$/,
+        test: /\.(s?)css$/,
+        // test: /\.(s*)css$/,
+        // test: /\.s[ac]ss$/i,
+        // include, // list of files to include in the loader
+        // exclude, // list of files to exclude from the loader
+        use: [
+          // Creates `style` nodes from JS strings
+          'style-loader',
+          // Translates CSS into CommonJS
+          'css-loader',
+          // Compiles Sass to CSS
+          'sass-loader'
+        ]
+      }
+    ]
+  }
+});

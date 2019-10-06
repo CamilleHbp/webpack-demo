@@ -2,6 +2,10 @@
 
 This project is just a basic webpack configuration in order to learn the tool in a more "hands-on" fashion.
 
+## Webpack organisation
+
+I use a file called `webpack.parts.js` to architecture the different webpack concerns. The different parts could be separated in a file per feature (webpack-dev-server, CSS, etc.) if needed. It could also be separated in a file per mode (production/development/etc.) but I'm not a huge fan of that organisation.
+
 ## Nodemon
 
 Nodemon watches the webpack.config.js file, and reloads the configuration when it is modified.

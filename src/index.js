@@ -1,23 +1,23 @@
-import counter from './counter';
-import component from './component';
+import counter from './components/counter';
+import title from './components/title';
 
-let demoComponent = component("Hi! I'm demo.");
+let demoTitle = title("Hi! I'm demo.");
 let demoCounter = counter();
 
-document.body.appendChild(demoComponent);
+document.body.appendChild(demoTitle);
 document.body.appendChild(demoCounter);
 
 // Hot Module Reloading interface (HMR)
 if (module.hot) {
-  module.hot.accept('./component', () => {
-    const nextComponent = component();
+  module.hot.accept('./components/title', () => {
+    const nextTitle = title();
 
     // Replace old content with the hot loaded one
-    document.body.replaceChild(nextComponent, demoComponent);
+    document.body.replaceChild(nextTitle, demoTitle);
 
-    demoComponent = nextComponent;
+    demoTitle = nextTitle;
   });
-  module.hot.accept('./counter', () => {
+  module.hot.accept('./components/counter', () => {
     const nextCounter = counter();
 
     // Replace old content with the hot loaded one
