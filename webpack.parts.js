@@ -9,6 +9,7 @@ exports.devServer = ({ host, port } = {}) => ({
     host, // Defaults to `localhost`
     port, // Defaults to 8080
     open: false, // Open the page in browser
-    overlay: true // Provides an overlay for capturing warnings and errors
+    overlay: true, // Provides an overlay for capturing warnings and errors
+    hotOnly: true // Don't refresh if hot loading fails. Good while implementing the client interface.
   }
 });

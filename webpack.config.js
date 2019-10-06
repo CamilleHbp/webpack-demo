@@ -1,6 +1,7 @@
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const merge = require('webpack-merge');
 const parts = require('./webpack.parts');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const commonConfig = merge([
   {
@@ -20,7 +21,10 @@ const developmentConfig = merge([
     // Customize if needed
     host: process.env.host,
     port: process.env.port
-  })
+  }),
+  {
+    plugins: [new webpack.HotModuleReplacementPlugin()]
+  }
 ]);
 
 module.exports = mode => {

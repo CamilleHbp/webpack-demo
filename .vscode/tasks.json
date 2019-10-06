@@ -8,9 +8,7 @@
       "type": "npm",
       "script": "start",
       "options": {
-        "env": {
-          "PORT": "3000"
-        }
+        "env": {}
       },
       "problemMatcher": []
     }

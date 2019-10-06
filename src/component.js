@@ -1,7 +1,8 @@
-function createText(text = 'Hello world') {
+function createText() {
   const element = document.createElement('div');
 
-  element.innerHTML = text;
+  element.innerHTML = "I'm so hot when I'm reloading, bitch.";
+  element.style.background = '#cad3f9';
 
   return element;
 }
