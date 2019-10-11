@@ -1,3 +1,4 @@
+import 'purecss';
 import './counter.scss';
 
 function createCounter(text = 'Hello world') {
@@ -21,7 +22,7 @@ function createCounter(text = 'Hello world') {
   };
 
   const counter = counterIncrementBy(1);
-  counterButton.className = 'counter-button';
+  counterButton.className = 'counter-button pure-button';
   counterButton.innerHTML = '+';
   counterButton.onclick = counter.increment;
   counterText.innerHTML = "Press '+'";

@@ -50,3 +50,8 @@ exports.loadCss = ({ include, exclude, use } = {}) => ({
     ]
   }
 });
+
+const PurifyCssPlugin = require('purifycss-webpack');
+exports.purifyCss = ({ paths }) => ({
+  plugins: [new PurifyCssPlugin({ paths })]
+});

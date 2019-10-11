@@ -1,15 +1,21 @@
-const webpack = require('webpack');
+const glob = require('glob');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const merge = require('webpack-merge');
+const path = require('path');
 const parts = require('./webpack.parts');
+const webpack = require('webpack');
 
-const loadersCss = {
+const CSS_LOADERS = {
   use: [
     // Translates CSS into CommonJS
     'css-loader',
     // Compiles Sass to CSS
     'sass-loader'
   ]
+};
+
+const PATHS = {
+  app: path.join(__dirname, 'src')
 };
 
 const commonConfig = merge([
@@ -23,10 +29,16 @@ const commonConfig = merge([
   }
 ]);
 
-const productionConfig = merge([parts.extractCss(loadersCss)]);
+const productionConfig = merge([
+  parts.extractCss(CSS_LOADERS),
+  //Use PurifyCSS only after the CSS extractor, otherwise it doesn't work
+  parts.purifyCss({
+    paths: glob.sync(`${PATHS.app}/**/*.js`, { nodir: true })
+  })
+]);
 
 const developmentConfig = merge([
-  parts.loadCss(loadersCss),
+  parts.loadCss(CSS_LOADERS),
   parts.devServer({
     // Customize if needed
     host: process.env.host,
